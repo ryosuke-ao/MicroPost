@@ -3,7 +3,7 @@ class MicropostsController < ApplicationController
   before_action :correct_user, only: [:destroy]
 
   def create
-    @micropost = current_user.microposts.build(micropost_params)
+    @microposts = current_user.feed_microposts.order('created_at DESC').page(params[:page])
     if @micropost.save
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
